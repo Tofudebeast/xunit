@@ -178,7 +178,14 @@ namespace Xunit
             {
                 string cachePath = appDomain.SetupInformation.CachePath;
 
-                AppDomain.Unload(appDomain);
+                try
+                {
+                    AppDomain.Unload(appDomain);
+                }
+                catch (CannotUnloadAppDomainException)
+                {
+                    // No need to fail here
+                }
 
                 try
                 {
